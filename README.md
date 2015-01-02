@@ -1,0 +1,4 @@
+imas_cg_api
+===========
+
+THE IDOLM@STER CINDERELLA GIRLS IDOL DATA API
