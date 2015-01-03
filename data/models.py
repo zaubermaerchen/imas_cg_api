@@ -7,15 +7,10 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
 
-    def convert_hash(self, fields=None):
-        hash_object = self.__dict__
-        del hash_object['_state']
-        if fields is not None:
-            for key in hash_object.keys():
-                if key not in fields:
-                    del hash_object[key]
-
-        return hash_object
+    def get_dict(self):
+        dictionary = self.__dict__
+        del dictionary['_state']
+        return dictionary
 
 
 # スキル補正値管理テーブル
@@ -40,15 +35,6 @@ class SkillValue(BaseModel):
 
     def __unicode__(self):
         return str(self.value1) + '%-' + str(self.value10) + '%'
-
-    #def get_value_list(self):
-    #    # 配列に変換
-    #    value_list = []
-    #    for i in range(1, 11):
-    #        value = self.__dict__['value' + str(i)]
-    #        value_list.append(value)
-    #
-    #    return value_list
 
     @classmethod
     def get_value_list(cls, skill_value_id):

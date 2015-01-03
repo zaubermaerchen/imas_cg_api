@@ -24,8 +24,11 @@ def get_list(request):
         return JSONResponseNotFound()
 
     # ハッシュリスト形式に変換
-    hash_list = {}
+    response_data = {}
     for idol in idol_list:
-        hash_list[idol.idol_id] = idol.convert_hash(fields)
+        data = idol.get_dict()
+        if fields is not None:
+            data = {k: v for k, v in data.items() if k in fields}
+        response_data[idol.idol_id] = data
 
-    return JSONResponse(hash_list)
+    return JSONResponse(response_data)

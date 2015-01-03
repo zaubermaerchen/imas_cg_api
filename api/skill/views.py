@@ -12,10 +12,10 @@ def get_list(request):
         return JSONResponseNotFound()
 
     # ハッシュリスト形式に変換
-    hash_list = {}
+    response_data = {}
     for skill in skill_list:
-        hash_object = skill.convert_hash()
-        hash_object['skill_value_list'] = SkillValue.get_value_list(skill.skill_value_id)
-        hash_list[skill.skill_id] = hash_object
+        data = skill.get_dict()
+        data['skill_value_list'] = SkillValue.get_value_list(skill.skill_value_id)
+        response_data[skill.skill_id] = data
 
-    return JSONResponse(hash_list)
+    return JSONResponse(response_data)

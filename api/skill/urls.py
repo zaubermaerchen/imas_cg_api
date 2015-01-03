@@ -6,5 +6,6 @@ from django.conf.urls import patterns, url
 
 urlpatterns = patterns(
     '',
+    url(r'^list$', 'api.skill.views.get_list'),
     url(r'^list/$', 'api.skill.views.get_list'),
 )
