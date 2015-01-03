@@ -21,7 +21,8 @@ THE IDOLM@STER CINDERELLA GIRLS IDOL DATA API
 ローカル環境での起動手順
 ---------------
 1. 必要ミドルウェア・ライブラリ、必要Pythonライブラリをインストールする
-1. DBに[最新のデータ](http://www4018uf.sakura.ne.jp/imas_cg/data/imas_cg_api.sql)を登録する
+1. プロジェクトのルートディレクトリで「python manage.py syncdb」を実行してデータベースを初期化する
+1. データベースに[最新のデータ](http://www4018uf.sakura.ne.jp/imas_cg/data/imas_cg_api.sql)を登録する
 1. プロジェクトのルートディレクトリで「python manage.py runserver 8000」を実行してサーバーを起動する
 1. 「http://localhost:8000/imas_cg/api/admin/」にアクセスして管理画面にアクセスできるか確認する
 
