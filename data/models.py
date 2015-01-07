@@ -33,7 +33,7 @@ class SkillValue(BaseModel):
         db_table = 'skill_value'
         ordering = ['id']
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.value1) + '%-' + str(self.value10) + '%'
 
     @classmethod
@@ -94,7 +94,7 @@ class Skill(BaseModel):
         db_table = 'skill'
         ordering = ['skill_id']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.comment
 
 
