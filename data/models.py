@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 
 
 # Create your models here.
@@ -14,6 +16,7 @@ class BaseModel(models.Model):
 
 
 # スキル補正値管理テーブル
+@python_2_unicode_compatible
 class SkillValue(BaseModel):
     id = models.IntegerField(primary_key=True)
     value1 = models.IntegerField(default=0)
@@ -55,6 +58,7 @@ class SkillValue(BaseModel):
 
 
 # スキル情報管理テーブル
+@python_2_unicode_compatible
 class Skill(BaseModel):
     TARGET_UNIT_CHOICES = (
         (0, 'Own'),
