@@ -3,18 +3,25 @@ from api.response import JSONResponse, JSONResponseNotFound
 from data.models import Idol
 
 
+def get_request_param(request, key):
+    value = None
+    
+    if key in request.POST:
+        value = request.POST[key]
+    elif key in request.GET:
+        value = request.GET[key]
+        
+    return value
+    
+
 # Create your views here.
 def get_list(request):
     # リクエストから必要なパラメータを取得
-    idol_type = None
-    rarity = None
+    idol_type = get_request_param(request, 'type')
+    rarity = get_request_param(request, 'rarity')
     fields = None
-    if 'type' in request.REQUEST:
-        idol_type = request.REQUEST['type']
-    if 'rarity' in request.REQUEST:
-        rarity = request.REQUEST['rarity']
-    if 'fields' in request.REQUEST:
-        fields = request.REQUEST['fields'].split(' ')
+    if get_request_param(request, 'fields') is not None:
+        fields = get_request_param(request, 'fields').split(' ')
         fields.append("idol_id")
 
     # アイドルリストを取得
