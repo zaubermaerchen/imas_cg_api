@@ -127,8 +127,8 @@ class Idol(BaseModel):
     defense = models.IntegerField(default=0)
     max_offense = models.IntegerField(default=0)
     max_defense = models.IntegerField(default=0)
-    skill_name = models.CharField(max_length=1024, blank=True, default="")
-    skill = models.ForeignKey(Skill, related_name="skill", default=0)
+    skill_name = models.CharField(max_length=1024, blank=True, default='')
+    skill = models.ForeignKey(Skill, related_name='skill', default=0)
     hash = models.CharField(max_length=32)
 
     class Meta:
@@ -140,12 +140,55 @@ class Idol(BaseModel):
 
     @classmethod
     def get_list(cls, idol_type=None, rarity=None):
-        idol_list = cls.objects.all()
+        idols = cls.objects.all()
 
         if idol_type is not None:
-            idol_list = idol_list.filter(type=idol_type)
+            idols = idols.filter(type=idol_type)
 
         if rarity is not None:
-            idol_list = idol_list.filter(rarity=rarity)
+            idols = idols.filter(rarity=rarity)
 
-        return idol_list
+        return idols
+
+
+# アイドル名管理テーブル
+class IdolName(BaseModel):
+    name = models.CharField(max_length=255, primary_key=True)
+
+    class Meta:
+        db_table = 'idol_name'
+
+
+# 劇場管理テーブル
+class Cartoon(BaseModel):
+    title = models.CharField(max_length=1024, default='')
+    date = models.DateField(default='0000-00-00')
+    idols = models.TextField(blank=True)
+    comment = models.CharField(max_length=1024, blank=True, default='')
+    thumbnail_hash = models.CharField(max_length=32)
+
+    class Meta:
+        db_table = 'cartoon'
+        ordering = ['id']
+
+    @classmethod
+    def get_list(cls, title=None, idols=None, start_at=None, end_at=None):
+        cartoons = cls.objects.all()
+
+        if title is not None and len(title) > 0:
+            where = 'MATCH(title) AGAINST (%s IN BOOLEAN MODE)'
+            param = '*D+ ' + title
+            cartoons = cartoons.extra(where=[where], params=[param])
+
+        if idols is not None and len(idols) > 0:
+            where = 'MATCH(idols) AGAINST (%s IN BOOLEAN MODE)'
+            param = '*D+ ' + idols
+            cartoons = cartoons.extra(where=[where], params=[param])
+
+        if start_at is not None:
+            cartoons = cartoons.filter(date__gte=start_at)
+
+        if end_at is not None:
+            cartoons = cartoons.filter(date__lte=end_at)
+
+        return cartoons

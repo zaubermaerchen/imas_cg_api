@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from data.models import Idol, Skill, SkillValue
+from data.models import Idol, Skill, SkillValue, Cartoon
 
 
 # Register your models here.
@@ -103,3 +103,15 @@ class SkillValueAdmin(admin.ModelAdmin):
         ]
 
 admin.site.register(SkillValue, SkillValueAdmin)
+
+
+class CartoonAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'title',
+        'date',
+        'idols',
+        'comment',
+    )
+
+admin.site.register(Cartoon, CartoonAdmin)

@@ -11,6 +11,8 @@ urlpatterns = patterns(
     # url(r'^api/', include('api.foo.urls')),
     url(r'^imas_cg/api/idol/', include('api.idol.urls')),
     url(r'^imas_cg/api/skill/', include('api.skill.urls')),
+    url(r'^imas_cg/api/idol_name/', include('api.idol_name.urls')),
+    url(r'^imas_cg/api/cartoon/', include('api.cartoon.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
