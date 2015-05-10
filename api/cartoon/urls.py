@@ -6,6 +6,6 @@ from django.conf.urls import patterns, url
 
 urlpatterns = patterns(
     '',
-    url(r'^list$', 'api.cartoon.views.get_list'),
-    url(r'^list/$', 'api.cartoon.views.get_list'),
+    url(r'^search$', 'api.cartoon.views.search'),
+    url(r'^search/$', 'api.cartoon.views.search'),
 )

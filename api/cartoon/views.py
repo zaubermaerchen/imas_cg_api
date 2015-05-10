@@ -4,8 +4,8 @@ from data.models import Cartoon
 from datetime import datetime
 
 
-def get_request_param(request, key):
-    value = None
+def get_request_param(request, key, default_value=None):
+    value = default_value
 
     if key in request.POST:
         value = request.POST[key]
@@ -26,20 +26,27 @@ def convert_datetime_object(str, format):
 
 
 # Create your views here.
-def get_list(request):
+def search(request):
     # リクエストから必要なパラメータを取得
     title = get_request_param(request, 'title')
     idols = get_request_param(request, 'idols')
     start_at = convert_datetime_object(get_request_param(request, 'start_at'), '%Y-%m-%d')
     end_at = convert_datetime_object(get_request_param(request, 'end_at'), '%Y-%m-%d')
+    offset = int(get_request_param(request, 'offset', '0'))
+    if offset < 0:
+        offset = 0
+    limit = int(get_request_param(request, 'limit', '10'))
+    if limit < 0:
+        limit = 10
 
     try:
         cartoons = Cartoon.get_list(title, idols, start_at, end_at)
     except Cartoon.DoesNotExist:
         return JSONResponseNotFound()
 
-    response_data = []
-    for cartoon in cartoons:
-        response_data.append(cartoon.get_dict())
+    # ハッシュリスト形式に変換
+    response_data = {'count': cartoons.count(), 'results': []}
+    for cartoon in cartoons[offset:offset + limit]:
+        response_data['results'].append(cartoon.get_dict())
 
     return JSONResponse(response_data)

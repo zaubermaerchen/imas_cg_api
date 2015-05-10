@@ -10,8 +10,8 @@ def get_list(request):
     except IdolName.DoesNotExist:
         return JSONResponseNotFound()
 
-    response_data = []
+    response_data = {'names': []}
     for idol_name in idol_names:
-        response_data.append(idol_name.name)
+        response_data['names'].append(idol_name.name)
 
     return JSONResponse(response_data)

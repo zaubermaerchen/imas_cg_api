@@ -161,6 +161,7 @@ class IdolName(BaseModel):
 
 # 劇場管理テーブル
 class Cartoon(BaseModel):
+    id = models.IntegerField(primary_key=True)
     title = models.CharField(max_length=1024, default='')
     date = models.DateField(default='0000-00-00')
     idols = models.TextField(blank=True)
@@ -192,3 +193,8 @@ class Cartoon(BaseModel):
             cartoons = cartoons.filter(date__lte=end_at)
 
         return cartoons
+
+    def get_dict(self):
+        dictionary = super(Cartoon, self).get_dict()
+        dictionary['idols'] = dictionary['idols'].split()
+        return dictionary

@@ -113,5 +113,10 @@ class CartoonAdmin(admin.ModelAdmin):
         'idols',
         'comment',
     )
+    fieldsets = [
+        (None, {
+            'fields': ['id', 'title', 'date', 'idols', 'comment']
+        })
+    ]
 
 admin.site.register(Cartoon, CartoonAdmin)

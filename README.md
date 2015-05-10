@@ -1,13 +1,16 @@
 THE IDOLM@STER CINDERELLA GIRLS IDOL DATA API
 ===============
-[発揮値計算機](https://github.com/zaubermaerchen/imas_cg_live_calc)で利用するアイドルのステータスやスキルの効果等のデータを取得する為のAPIです。
+アイドルマスターシンデレラガールズのアイドルのステータスやスキルの効果等のデータを取得する為のAPIです。
 
 必要ミドルウェア・ライブラリ
 ---------------
 * Python >= 2.7.9(or Python >= 3.4.2)
 * MariaDB >= 10.0.15(or MySQL >= 5.5.41)
-* Memcached >= 1.4.21
-* libMemcached >= 1.0.18
+* [Memcached](http://memcached.org/) >= 1.4.21
+* [libMemcached](http://libmemcached.org/) >= 1.0.18
+* [MeCab](http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html) >= 0.996
+* [Groonga](http://groonga.org/ja/) >= 5.00
+* [Mroonga](http://mroonga.org/ja/) >= 5.00
 
 必要Pythonライブラリ
 ---------------
@@ -19,6 +22,7 @@ THE IDOLM@STER CINDERELLA GIRLS IDOL DATA API
 ローカル環境での起動手順
 ---------------
 1. 必要ミドルウェア・ライブラリ、必要Pythonライブラリをインストールする
+1. sql/create_table.sqlを実行してテーブルを作成する
 1. プロジェクトのルートディレクトリで「python manage.py syncdb」を実行してデータベースを初期化する
 1. データベースに[最新のデータ](http://www4018uf.sakura.ne.jp/imas_cg/data/imas_cg_api.sql)を登録する
 1. プロジェクトのルートディレクトリで「python manage.py runserver 8000」を実行してサーバーを起動する
@@ -58,7 +62,7 @@ APIリファレンス
     }
 
 |パラメータ|項目名|備考|
-|---|---|---|---|
+|---|---|---|
 |idol_id|アイドルID| |
 |name|アイドル名| |
 |type|属性|0:キュート 1:クール 2:パッション|
@@ -96,7 +100,7 @@ APIリファレンス
     }
 
 |パラメータ|項目名|備考|
-|---|---|---|---|
+|---|---|---|
 |skill_id|スキルID| |
 |target_unit|対象ユニット|0:自ユニット 1:相手ユニット|
 |target_member|対象メンバー|0:自分 1:フロントメンバー 2:バックメンバー 3:フロント・バックメンバー|
@@ -106,3 +110,55 @@ APIリファレンス
 |skill_value_id|スキル効果ID| |
 |skill_value_list|スキル効果量|スキルレベルごとの効果量|
 |comment|スキル効果概要| |
+
+### シンデレラガールズ劇場検索API
+#### URL
+/imas_cg/api/cartoon/search/
+
+#### リクエストパラメータ
+
+|パラメータ|項目名|必須|備考|
+|---|---|---|---|
+|title|検索対象タイトル| ||
+|start_at|検索対象公開日(開始)| |yyyy-mm-dd形式|
+|end_at|検索対象公開日(終了)| |yyyy-mm-dd形式|
+|idols|検索対象アイドル| |登場アイドルのフルネームを記述(複数指定時は半角スペースで区切り)|
+|offset|検索結果開始位置| |省略時は先頭位置から|
+|limit|検索結果取得件数| |省略時は10件|
+
+#### レスポンスパラメータ
+
+    {
+        "count": 1, 
+        "results": [
+            {
+                "comment": "パジャマパーティーコンプガチャ", 
+                "date": "2012-04-30", 
+                "id": 7, 
+                "idols": [
+                    "間中美里", 
+                    "緒方智絵里", 
+                    "黒川千秋", 
+                    "川島瑞樹", 
+                    "若林智香"
+                ], 
+                "thumbnail_hash": "3fef65403bdec5bd8466917be69799c9", 
+                "title": "女の子？の気になるとこ"
+            }
+        ]
+    }
+    
+
+|パラメータ|項目名|備考|
+|---|---|---|
+|count|検索結果総件数||
+|results|検索結果||
+
+|パラメータ|項目名|備考|
+|---|---|---|
+|id|スキルID||
+|title|タイトル||
+|date|公開日|yyyy-mm-dd形式|
+|idols|登場アイドル| ||
+|thumbnail_hash|劇場サムネイル画像のハッシュ||
+|comment|スキル効果概要||
