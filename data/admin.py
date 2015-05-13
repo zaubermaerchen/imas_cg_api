@@ -115,7 +115,7 @@ class CartoonAdmin(admin.ModelAdmin):
     )
     fieldsets = [
         (None, {
-            'fields': ['id', 'title', 'date', 'idols', 'comment']
+            'fields': ['id', 'title', 'date', 'idols', 'thumbnail_hash', 'comment']
         })
     ]
 
