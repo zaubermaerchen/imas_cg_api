@@ -15,14 +15,15 @@ def get_request_param(request, key, default_value=None):
     return value
 
 
-def convert_datetime_object(str, format):
-    if str is None or len(str) == 0:
+def convert_datetime_object(datetime_string, datetime_format):
+    if datetime_string is None or len(datetime_string) == 0:
         return None
 
+    value = None
     try:
-        return datetime.strptime(str, format)
-    except:
-        return None
+        value = datetime.strptime(datetime_string, datetime_format)
+    finally:
+        return value
 
 
 # Create your views here.
@@ -39,14 +40,12 @@ def search(request):
     if limit < 0:
         limit = 10
 
+    # ハッシュリスト形式に変換
+    response_data = {'count': 0, 'results': []}
     try:
         cartoons = Cartoon.get_list(title, idols, start_at, end_at)
-    except Cartoon.DoesNotExist:
-        return JSONResponseNotFound()
-
-    # ハッシュリスト形式に変換
-    response_data = {'count': cartoons.count(), 'results': []}
-    for cartoon in cartoons[offset:offset + limit]:
-        response_data['results'].append(cartoon.get_dict())
-
-    return JSONResponse(response_data)
+        response_data['count'] = cartoons.count()
+        for cartoon in cartoons[offset:offset + limit]:
+            response_data['results'].append(cartoon.get_dict())
+    finally:
+        return JSONResponse(response_data)
