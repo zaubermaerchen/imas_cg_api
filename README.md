@@ -4,10 +4,8 @@ THE IDOLM@STER CINDERELLA GIRLS IDOL DATA API
 
 必要ミドルウェア・ライブラリ
 ---------------
-* Python >= 2.7.9(or Python >= 3.4.2)
+* Python >= 3.4.2(or Python >= 2.7.9)
 * MariaDB >= 10.0.15(or MySQL >= 5.5.41)
-* [Memcached](http://memcached.org/) >= 1.4.21
-* [libMemcached](http://libmemcached.org/) >= 1.0.18
 * [MeCab](http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html) >= 0.996
 * [Groonga](http://groonga.org/ja/) >= 5.00
 * [Mroonga](http://mroonga.org/ja/) >= 5.00
@@ -15,8 +13,7 @@ THE IDOLM@STER CINDERELLA GIRLS IDOL DATA API
 必要Pythonライブラリ
 ---------------
 * Django >= 1.7.1
-* MySQL-Python 1.2.5(or PyMySQL >= 0.6.3)
-* pylibmc >= 1.4.1
+* PyMySQL >= 0.6.3(or MySQL-Python 1.2.5)
 * simplejson >= 3.6.5
 
 ローカル環境での起動手順

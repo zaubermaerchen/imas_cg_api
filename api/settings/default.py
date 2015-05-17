@@ -12,19 +12,9 @@ DATABASES = {
     }
 }
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-        'LOCATION': 'localhost:11211',
-    }
-    #'default': {
-    #    'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
-    #    'LOCATION': 'localhost:11211',
-    #    'TIMEOUT': 500,
-    #    'BINARY': True,
-    #    'OPTIONS': {
-    #        'tcp_nodelay': True,
-    #        'ketama': True
-    #    }
-    #}
-}
+#CACHES = {
+#    'default': {
+#        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+#        'LOCATION': 'localhost:11211',
+#    }
+#}
