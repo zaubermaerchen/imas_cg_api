@@ -31,6 +31,8 @@ def search(request):
     # リクエストから必要なパラメータを取得
     title = get_request_param(request, 'title')
     idols = get_request_param(request, 'idols')
+    if idols is not None:
+        idols = idols.split()
     start_at = convert_datetime_object(get_request_param(request, 'start_at'), '%Y-%m-%d')
     end_at = convert_datetime_object(get_request_param(request, 'end_at'), '%Y-%m-%d')
     offset = int(get_request_param(request, 'offset', '0'))

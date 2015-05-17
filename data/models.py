@@ -183,7 +183,7 @@ class Cartoon(BaseModel):
 
         if idols is not None and len(idols) > 0:
             where = 'MATCH(idols) AGAINST (%s IN BOOLEAN MODE)'
-            param = '*D+ ' + idols
+            param = '+' + ' +'.join(idols)
             cartoons = cartoons.extra(where=[where], params=[param])
 
         if start_at is not None:
