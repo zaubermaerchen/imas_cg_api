@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS `idol`;
 CREATE TABLE `idol` (
   `id` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(1024) NOT NULL DEFAULT '',
+  `name` varchar(256) NOT NULL DEFAULT '',
   `type` int(11) NOT NULL DEFAULT '0',
   `rarity` int(11) NOT NULL DEFAULT '0',
   `cost` int(11) NOT NULL DEFAULT '0',
@@ -9,7 +9,7 @@ CREATE TABLE `idol` (
   `defense` int(11) NOT NULL DEFAULT '0',
   `max_offense` int(11) NOT NULL DEFAULT '0',
   `max_defense` int(11) NOT NULL DEFAULT '0',
-  `skill_name` varchar(1024) NOT NULL DEFAULT '',
+  `skill_name` varchar(256) NOT NULL DEFAULT '',
   `skill_id` int(11) NOT NULL DEFAULT '0',
   `hash` char(32) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -25,7 +25,7 @@ CREATE TABLE `skill` (
   `target_num` int(11) NOT NULL DEFAULT '-1',
   `target_param` int(11) NOT NULL DEFAULT '0',
   `skill_value_id` int(11) NOT NULL DEFAULT '0',
-  `comment` varchar(1024) DEFAULT '',
+  `comment` varchar(256) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -52,15 +52,15 @@ DROP TABLE IF EXISTS `cartoon`;
 DROP TABLE IF EXISTS `idol_name`;
 
 CREATE TABLE `idol_name` (
-  `name` varchar(255) PRIMARY KEY
+  `name` varchar(256) PRIMARY KEY
 ) ENGINE=Mroonga DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='default_tokenizer "TokenDelimit"';
 
 CREATE TABLE `cartoon` (
   `id` int(11) NOT NULL DEFAULT '0' PRIMARY KEY,
-  `title` varchar(1024) NOT NULL DEFAULT '',
+  `title` varchar(256) NOT NULL DEFAULT '',
   `date` date NOT NULL DEFAULT '0000-00-00',
   `idols` text COMMENT 'flags "COLUMN_VECTOR", type "idol_name"',
-  `comment` varchar(1024) NOT NULL DEFAULT '',
+  `comment` varchar(256) NOT NULL DEFAULT '',
   `thumbnail_hash` char(32) DEFAULT NULL,
   FULLTEXT INDEX `title_index` (`title`),
   FULLTEXT INDEX `idols_index` (`idols`) COMMENT 'table "idol_name"'

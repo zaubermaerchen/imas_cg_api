@@ -92,7 +92,7 @@ class Skill(BaseModel):
     target_num = models.IntegerField(default=-1)
     target_param = models.IntegerField(choices=TARGET_PARAM_CHOICES, default=0)
     skill_value = models.ForeignKey(SkillValue, default=0)
-    comment = models.CharField(max_length=1024)
+    comment = models.CharField(max_length=256)
 
     class Meta:
         db_table = 'skill'
@@ -119,7 +119,7 @@ class Idol(BaseModel):
     )
 
     idol_id = models.IntegerField(db_column='id', primary_key=True)
-    name = models.CharField(max_length=1024)
+    name = models.CharField(max_length=256)
     type = models.IntegerField(choices=TYPE_CHOICES, default=0)
     rarity = models.IntegerField(choices=RARITY_CHOICES, default=0)
     cost = models.IntegerField(default=1)
@@ -127,7 +127,7 @@ class Idol(BaseModel):
     defense = models.IntegerField(default=0)
     max_offense = models.IntegerField(default=0)
     max_defense = models.IntegerField(default=0)
-    skill_name = models.CharField(max_length=1024, blank=True, default='')
+    skill_name = models.CharField(max_length=256, blank=True, default='')
     skill = models.ForeignKey(Skill, related_name='skill', default=0)
     hash = models.CharField(max_length=32)
 
@@ -153,7 +153,7 @@ class Idol(BaseModel):
 
 # アイドル名管理テーブル
 class IdolName(BaseModel):
-    name = models.CharField(max_length=255, primary_key=True)
+    name = models.CharField(max_length=256, primary_key=True)
 
     class Meta:
         db_table = 'idol_name'
@@ -162,10 +162,10 @@ class IdolName(BaseModel):
 # 劇場管理テーブル
 class Cartoon(BaseModel):
     id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=1024, default='')
+    title = models.CharField(max_length=256, default='')
     date = models.DateField(default='0000-00-00')
     idols = models.TextField(blank=True)
-    comment = models.CharField(max_length=1024, blank=True, default='')
+    comment = models.CharField(max_length=256, blank=True, default='')
     thumbnail_hash = models.CharField(max_length=32)
 
     class Meta:
