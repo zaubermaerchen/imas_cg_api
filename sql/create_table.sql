@@ -52,7 +52,7 @@ DROP TABLE IF EXISTS `cartoon`;
 DROP TABLE IF EXISTS `idol_name`;
 
 CREATE TABLE `idol_name` (
-  `name` varchar(256) PRIMARY KEY
+  `name` varchar(255) PRIMARY KEY
 ) ENGINE=Mroonga DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='default_tokenizer "TokenDelimit"';
 
 CREATE TABLE `cartoon` (

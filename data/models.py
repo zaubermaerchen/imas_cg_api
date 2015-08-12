@@ -153,7 +153,7 @@ class Idol(BaseModel):
 
 # アイドル名管理テーブル
 class IdolName(BaseModel):
-    name = models.CharField(max_length=256, primary_key=True)
+    name = models.CharField(max_length=255, primary_key=True)
 
     class Meta:
         db_table = 'idol_name'
