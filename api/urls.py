@@ -1,11 +1,10 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     # Examples:
     # url(r'^$', 'api.views.home', name='home'),
     # url(r'^api/', include('api.foo.urls')),
@@ -19,4 +18,4 @@ urlpatterns = patterns(
 
     # Uncomment the next line to enable the admin:
     url(r'^imas_cg/api/admin/', include(admin.site.urls)),
-)
+]

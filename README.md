@@ -12,7 +12,7 @@ THE IDOLM@STER CINDERELLA GIRLS IDOL DATA API
 
 必要Pythonライブラリ
 ---------------
-* Django >= 1.7.1
+* Django >= 1.8
 * PyMySQL >= 0.6.3(or MySQL-Python 1.2.5)
 * simplejson >= 3.6.5
 
@@ -153,7 +153,7 @@ APIリファレンス
 
 |パラメータ|項目名|備考|
 |---|---|---|
-|id|スキルID| |
+|id|劇場ID| |
 |title|タイトル| |
 |date|公開日|yyyy-mm-dd形式|
 |idols|登場アイドル| |
