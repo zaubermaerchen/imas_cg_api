@@ -8,4 +8,6 @@ from api.cartoon import views
 urlpatterns = [
     url(r'^search$', views.search),
     url(r'^search/$', views.search),
+    url(r'^relation$', views.relation),
+    url(r'^relation/$', views.relation),
 ]

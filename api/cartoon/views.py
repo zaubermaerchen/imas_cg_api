@@ -2,6 +2,7 @@
 from api.response import JSONResponse, JSONResponseNotFound
 from data.models import Cartoon
 from datetime import datetime
+import collections
 
 
 def get_request_param(request, key, default_value=None):
@@ -49,5 +50,29 @@ def search(request):
         response_data['count'] = cartoons.count()
         for cartoon in cartoons[offset:offset + limit]:
             response_data['results'].append(cartoon.get_dict())
+    finally:
+        return JSONResponse(response_data)
+
+def relation(request):
+    idol = get_request_param(request, 'idol')
+    if idol is None:
+        return JSONResponse({})
+    else:
+        array = idol.split()
+        if len(array) == 0:
+            return JSONResponse({})
+        idol = array[0]
+
+
+    # ハッシュリスト形式に変換
+    response_data = {}
+    try:
+        idols = []
+        cartoons = Cartoon.get_list(idols=[idol])
+        for cartoon in cartoons:
+            idols.extend(cartoon.idols.split())
+
+        response_data = dict(collections.Counter(idols))
+        del response_data[idol]
     finally:
         return JSONResponse(response_data)
