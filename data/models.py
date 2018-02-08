@@ -91,7 +91,7 @@ class Skill(BaseModel):
     target_type = models.IntegerField(choices=TARGET_TYPE_CHOICES, default=1)
     target_num = models.IntegerField(default=-1)
     target_param = models.IntegerField(choices=TARGET_PARAM_CHOICES, default=0)
-    skill_value = models.ForeignKey(SkillValue, default=0)
+    skill_value = models.ForeignKey(SkillValue, default=0, on_delete=models.PROTECT)
     comment = models.CharField(max_length=256)
 
     class Meta:
@@ -128,7 +128,7 @@ class Idol(BaseModel):
     max_offense = models.IntegerField(default=0)
     max_defense = models.IntegerField(default=0)
     skill_name = models.CharField(max_length=256, blank=True, default='')
-    skill = models.ForeignKey(Skill, related_name='skill', default=0)
+    skill = models.ForeignKey(Skill, related_name='skill', default=0, on_delete=models.PROTECT)
     hash = models.CharField(max_length=32)
 
     class Meta:

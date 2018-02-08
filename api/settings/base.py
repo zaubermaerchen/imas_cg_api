@@ -74,7 +74,7 @@ STATICFILES_FINDERS = (
 SECRET_KEY = '6un@^9o1nr(il3z&(v9vi5(s_%%4_r(xx!u=q$b(@^hgl6gyzn'
 
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
@@ -84,7 +84,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
-)
+]
 
 ROOT_URLCONF = 'api.urls'
 
