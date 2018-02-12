@@ -1,0 +1,23 @@
+version: "3.2"
+services:
+  db:
+    build: ./db
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_USER: imas_cg
+      MYSQL_PASSWORD: imas_cg
+      MYSQL_DATABASE: imas_cg
+    volumes:
+      - type: bind
+        source: ../sql
+        target: /docker-entrypoint-initdb.d
+  app:
+    build: ./app
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    volumes:
+      - type: bind
+        source: ../
+        target: /home
