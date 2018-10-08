@@ -2,7 +2,9 @@ FROM python:alpine
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_SETTINGS_MODULE api.settings.docker
 ADD requirements.txt .
-RUN pip install -r requirements.txt
+RUN apk add --no-cache gcc musl-dev libffi-dev openssl-dev \
+    && pip install --upgrade pip \
+    && pip install -r requirements.txt
 
 WORKDIR /home
 
