@@ -13,8 +13,9 @@ CREATE TABLE `idol` (
   `skill_id` int(11) NOT NULL DEFAULT '0',
   `hash` char(32) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  FULLTEXT INDEX `name_index` (`name`),
   KEY `idol_idx1` (`type`,`rarity`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=Mroonga DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `skill`;
 CREATE TABLE `skill` (

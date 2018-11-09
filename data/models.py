@@ -139,8 +139,13 @@ class Idol(BaseModel):
         ]
 
     @classmethod
-    def get_list(cls, idol_type=None, rarity=None):
+    def get_list(cls, name=None, idol_type=None, rarity=None):
         idols = cls.objects.all()
+
+        if name is not None and len(name) > 0:
+            where = 'MATCH(name) AGAINST (%s IN BOOLEAN MODE)'
+            param = '*D+ ' + name
+            idols = idols.extra(where=[where], params=[param])
 
         if idol_type is not None:
             if isinstance(idol_type, list):

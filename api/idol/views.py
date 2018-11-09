@@ -27,6 +27,7 @@ def get_request_params(request, key):
 # Create your views here.
 def get_list(request):
     # リクエストから必要なパラメータを取得
+    name = get_request_param(request, 'name')
     idol_types = get_request_params(request, 'type')
     rarities = get_request_params(request, 'rarity')
     fields = None
@@ -44,7 +45,7 @@ def get_list(request):
 
     # アイドルリストを取得
     try:
-        idol_list = Idol.get_list(idol_type=idol_types, rarity=rarities)
+        idol_list = Idol.get_list(name=name, idol_type=idol_types, rarity=rarities)
     except Idol.DoesNotExist:
         return JSONResponseNotFound()
 
