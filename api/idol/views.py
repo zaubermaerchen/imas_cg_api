@@ -51,11 +51,13 @@ def get_list(request):
 
     # ハッシュリスト形式に変換
     response_data = {}
+    response_data['count'] = idol_list.count()
+    response_data['results'] = {}
     idol_list = idol_list[offset:] if limit is None else idol_list[offset:offset+limit]
     for idol in idol_list:
         data = idol.get_dict()
         if fields is not None:
             data = {k: v for k, v in data.items() if k in fields}
-        response_data[idol.idol_id] = data
+        response_data['results'][idol.idol_id] = data
 
     return JSONResponse(response_data)
