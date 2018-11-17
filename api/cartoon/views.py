@@ -16,6 +16,16 @@ def get_request_param(request, key, default_value=None):
     return value
 
 
+def get_request_params(request, key):
+    if key in request.POST:
+        return request.POST.getlist(key)
+
+    if key in request.GET:
+        return request.GET.getlist(key)
+
+    return None
+
+
 def convert_datetime_object(datetime_string, datetime_format):
     if datetime_string is None or len(datetime_string) == 0:
         return None
@@ -31,9 +41,11 @@ def convert_datetime_object(datetime_string, datetime_format):
 def search(request):
     # リクエストから必要なパラメータを取得
     title = get_request_param(request, 'title')
-    idols = get_request_param(request, 'idols')
-    if idols is not None:
-        idols = idols.split()
+    idols = get_request_params(request, 'idol')
+    if idols is None:
+        idols = get_request_param(request, 'idols')
+        if idols is not None:
+            idols = idols.split()
     start_at = convert_datetime_object(get_request_param(request, 'start_at'), '%Y-%m-%d')
     end_at = convert_datetime_object(get_request_param(request, 'end_at'), '%Y-%m-%d')
     offset = int(get_request_param(request, 'offset', '0'))

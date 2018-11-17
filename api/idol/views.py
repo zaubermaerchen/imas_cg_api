@@ -30,9 +30,8 @@ def get_list(request):
     name = get_request_param(request, 'name')
     idol_types = get_request_params(request, 'type')
     rarities = get_request_params(request, 'rarity')
-    fields = None
-    if get_request_param(request, 'fields') is not None:
-        fields = get_request_param(request, 'fields').split(' ')
+    fields = get_request_params(request, 'field')
+    if fields is not None:
         fields.append("idol_id")
     offset = get_request_param(request, 'offset', '0')
     offset = int(offset) if offset.isdecimal() else 0
@@ -50,9 +49,10 @@ def get_list(request):
         return JSONResponseNotFound()
 
     # ハッシュリスト形式に変換
-    response_data = {}
-    response_data['count'] = idol_list.count()
-    response_data['results'] = {}
+    response_data = {
+        'count': idol_list.count(),
+        'results': {},
+    }
     idol_list = idol_list[offset:] if limit is None else idol_list[offset:offset+limit]
     for idol in idol_list:
         data = idol.get_dict()
