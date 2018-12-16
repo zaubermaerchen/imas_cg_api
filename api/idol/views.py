@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
-from api.response import JSONResponse, JSONResponseNotFound
+from rest_framework import generics
+from .serializer import SearchSerializer
+from .pagination import SearchLimitOffsetPagination
 from data.models import Idol
+from api.response import JSONResponse, JSONResponseNotFound
 
 
 def get_request_param(request, key, default_value=None):
@@ -24,13 +27,22 @@ def get_request_params(request, key):
     return None
 
 
-def get(resuest, idol_id):
-    try:
-        idol = Idol.objects.get(pk=idol_id)
-    except Idol.DoesNotExist:
-        return JSONResponseNotFound()
+class GetView(generics.RetrieveAPIView):
+    queryset = Idol.objects.all()
+    serializer_class = SearchSerializer
 
-    return JSONResponse(idol.get_dict())
+
+class SearchView(generics.ListAPIView):
+    serializer_class = SearchSerializer
+    pagination_class = SearchLimitOffsetPagination
+
+    def get_queryset(self):
+        # リクエストから必要なパラメータを取得
+        name = self.request.query_params.get('name')
+        idol_types = self.request.query_params.getlist('type')
+        rarities = self.request.query_params.getlist('rarity')
+
+        return Idol.get_list(name=name, idol_type=idol_types, rarity=rarities)
 
 
 # Create your views here.

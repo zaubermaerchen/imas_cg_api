@@ -149,13 +149,15 @@ class Idol(BaseModel):
 
         if idol_type is not None:
             if isinstance(idol_type, list):
-                idols = idols.filter(type__in=idol_type)
+                if len(idol_type) > 0:
+                    idols = idols.filter(type__in=idol_type)
             else:
                 idols = idols.filter(type=idol_type)
 
         if rarity is not None:
             if isinstance(rarity, list):
-                idols = idols.filter(rarity__in=rarity)
+                if len(rarity) > 0:
+                    idols = idols.filter(rarity__in=rarity)
             else:
                 idols = idols.filter(rarity=rarity)
 
