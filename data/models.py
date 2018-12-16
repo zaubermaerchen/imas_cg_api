@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
-
+import collections
 
 # Create your models here.
 class BaseModel(models.Model):
@@ -205,7 +205,14 @@ class Cartoon(BaseModel):
 
         return cartoons
 
-    def get_dict(self):
-        dictionary = super(Cartoon, self).get_dict()
-        dictionary['idols'] = dictionary['idols'].split()
-        return dictionary
+    @classmethod
+    def get_costars(cls, name):
+        idols = []
+        cartoons = cls.get_list(idols=[name])
+        for cartoon in cartoons:
+            idols.extend(cartoon.idols.split())
+
+        results = dict(collections.Counter(idols))
+        del results[name]
+        return results
+

@@ -1,29 +1,9 @@
 # -*- coding: utf-8 -*-
-from api.response import JSONResponse, JSONResponseNotFound
-from data.models import Cartoon
+from rest_framework import generics
 from datetime import datetime
-import collections
-
-
-def get_request_param(request, key, default_value=None):
-    value = default_value
-
-    if key in request.POST:
-        value = request.POST[key]
-    elif key in request.GET:
-        value = request.GET[key]
-
-    return value
-
-
-def get_request_params(request, key):
-    if key in request.POST:
-        return request.POST.getlist(key)
-
-    if key in request.GET:
-        return request.GET.getlist(key)
-
-    return None
+from .serializer import SearchSerializer, Costar, CostarSerializer
+from .pagination import SearchLimitOffsetPagination
+from data.models import Cartoon, IdolName
 
 
 def convert_datetime_object(datetime_string, datetime_format):
@@ -37,54 +17,36 @@ def convert_datetime_object(datetime_string, datetime_format):
         return value
 
 
-# Create your views here.
-def search(request):
-    # リクエストから必要なパラメータを取得
-    title = get_request_param(request, 'title')
-    idols = get_request_params(request, 'idol')
-    if idols is None:
-        idols = get_request_param(request, 'idols')
-        if idols is not None:
-            idols = idols.split()
-    start_at = convert_datetime_object(get_request_param(request, 'start_at'), '%Y-%m-%d')
-    end_at = convert_datetime_object(get_request_param(request, 'end_at'), '%Y-%m-%d')
-    offset = int(get_request_param(request, 'offset', '0'))
-    if offset < 0:
-        offset = 0
-    limit = int(get_request_param(request, 'limit', '10'))
-    if limit < 0:
-        limit = 10
+class SearchView(generics.ListAPIView):
+    serializer_class = SearchSerializer
+    pagination_class = SearchLimitOffsetPagination
 
-    # ハッシュリスト形式に変換
-    response_data = {'count': 0, 'results': []}
-    try:
-        cartoons = Cartoon.get_list(title, idols, start_at, end_at)
-        response_data['count'] = cartoons.count()
-        for cartoon in cartoons[offset:offset + limit]:
-            response_data['results'].append(cartoon.get_dict())
-    finally:
-        return JSONResponse(response_data)
+    def get_queryset(self):
+        # リクエストから必要なパラメータを取得
+        title = self.request.query_params.get('title')
+        characters = self.request.query_params.getlist('character')
+        start_at = convert_datetime_object(self.request.query_params.get('start_at'), '%Y-%m-%d')
+        end_at = convert_datetime_object(self.request.query_params.get('end_at'), '%Y-%m-%d')
 
-def relation(request):
-    idol = get_request_param(request, 'idol')
-    if idol is None:
-        return JSONResponse({})
-    else:
-        array = idol.split()
-        if len(array) == 0:
-            return JSONResponse({})
-        idol = array[0]
+        return Cartoon.get_list(title, characters, start_at, end_at)
 
 
-    # ハッシュリスト形式に変換
-    response_data = {}
-    try:
-        idols = []
-        cartoons = Cartoon.get_list(idols=[idol])
-        for cartoon in cartoons:
-            idols.extend(cartoon.idols.split())
+class CostarView(generics.ListAPIView):
+    serializer_class = CostarSerializer
 
-        response_data = dict(collections.Counter(idols))
-        del response_data[idol]
-    finally:
-        return JSONResponse(response_data)
+    def get_queryset(self, *args, **kwargs):
+        name = self.kwargs.get('name')
+
+        # 名前チェック
+        try:
+            IdolName.objects.get(pk=name)
+        except IdolName.DoesNotExist:
+            return []
+
+        costars = []
+        for k, v in Cartoon.get_costars(name).items():
+            costars.append(Costar(k, v))
+        return costars
+
+
+

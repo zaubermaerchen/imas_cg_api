@@ -1,13 +1,11 @@
-from django.conf.urls import url
-from api.cartoon import views
+from django.urls import path
+from .views import SearchView, CostarView
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = [
-    url(r'^search$', views.search),
-    url(r'^search/$', views.search),
-    url(r'^relation$', views.relation),
-    url(r'^relation/$', views.relation),
+    path('search/', SearchView.as_view()),
+    path('costar/<str:name>', CostarView.as_view()),
 ]
