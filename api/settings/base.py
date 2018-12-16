@@ -159,3 +159,5 @@ TEMPLATES = [
 ]
 
 ADMIN_MEDIA_PREFIX = '/static/admin/'
+
+CORS_ORIGIN_ALLOW_ALL = True
