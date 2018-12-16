@@ -6,6 +6,7 @@ from api.idol import views
 # admin.autodiscover()
 
 urlpatterns = [
+    url(r'^(?P<idol_id>\d{7})$', views.get),
     url(r'^list$', views.get_list),
     url(r'^list/$', views.get_list),
 ]

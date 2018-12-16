@@ -24,6 +24,15 @@ def get_request_params(request, key):
     return None
 
 
+def get(resuest, idol_id):
+    try:
+        idol = Idol.objects.get(pk=idol_id)
+    except Idol.DoesNotExist:
+        return JSONResponseNotFound()
+
+    return JSONResponse(idol.get_dict())
+
+
 # Create your views here.
 def get_list(request):
     # リクエストから必要なパラメータを取得

@@ -29,6 +29,44 @@ APIリファレンス
 ---------------
 ### アイドルデータAPI
 #### URL
+/imas_cg/api/idol/アイドルID/
+
+#### レスポンスパラメータ
+
+    {
+        "idol_id": 1500111, 
+        "name": "[普通の女の子]天海春香+", 
+        "type": 0, 
+        "rarity": 5, 
+        "cost": 10, 
+        "offense": 2784, 
+        "defense": 2784, 
+        "max_defense": 8704, 
+        "max_offense": 8704, 
+        "skill_id": 101070003, 
+        "skill_name": "THE☆王道", 
+        "hash": "e7fe451b0e7483323d10d1c8b038bf94" 
+    }
+
+
+|パラメータ|項目名|備考|
+|---|---|---|
+|idol_id|アイドルID| |
+|name|アイドル名| |
+|type|属性|0:キュート 1:クール 2:パッション|
+|rarity|レアリティ|0:ノーマル 1:ノーマル+ 2:レア 3:レア+ 4:Sレア 5:Sレア+|
+|cost|コスト| |
+|offense|初期攻めアピール力| |
+|defense|初期守りアピール力| |
+|max_offense|最大攻めアピール力| |
+|max_defense|最大守りアピール力| |
+|skill_id|スキルID| |
+|skill_name|スキル名| |
+|hash|ハッシュ|画像ファイル名|
+
+
+### アイドルデータ検索API
+#### URL
 /imas_cg/api/idol/list/
 
 #### リクエストパラメータ
@@ -42,6 +80,7 @@ APIリファレンス
 
 #### レスポンスパラメータ
 
+    {
         "count": 1, 
         "results": {
             "1500111": {
