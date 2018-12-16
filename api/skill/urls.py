@@ -1,4 +1,5 @@
-from django.conf.urls import url
+from django.urls import path
+from .views import ListView
 from api.skill import views
 
 # Uncomment the next two lines to enable the admin:
@@ -6,6 +7,6 @@ from api.skill import views
 # admin.autodiscover()
 
 urlpatterns = [
-    url(r'^list$', views.get_list),
-    url(r'^list/$', views.get_list),
+    path('list/', views.get_list),
+    path('list2/', ListView.as_view()),
 ]

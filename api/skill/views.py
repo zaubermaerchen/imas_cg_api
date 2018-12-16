@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
-from api.response import JSONResponse, JSONResponseNotFound
+from rest_framework import generics
+from .serializer import ListSerializer
 from data.models import Skill, SkillValue
+from api.response import JSONResponse, JSONResponseNotFound
+
+
+class ListView(generics.ListAPIView):
+    queryset = Skill.objects.filter(skill_id__gte=1)
+    serializer_class = ListSerializer
 
 
 # Create your views here.
