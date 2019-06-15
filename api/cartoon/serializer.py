@@ -5,7 +5,6 @@ from data.models import Cartoon
 
 class SearchSerializer(serializers.ModelSerializer):
     characters = serializers.SerializerMethodField(read_only=True)
-    idols = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Cartoon
@@ -14,17 +13,12 @@ class SearchSerializer(serializers.ModelSerializer):
             'title',
             'date',
             'characters',
-            'idols',
             'comment',
             'thumbnail_hash',
         ]
 
     @staticmethod
     def get_characters(obj):
-        return obj.idols.split()
-
-    @staticmethod
-    def get_idols(obj):
         return obj.idols.split()
 
 
