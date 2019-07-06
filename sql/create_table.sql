@@ -15,7 +15,7 @@ CREATE TABLE `idol` (
   PRIMARY KEY (`id`),
   FULLTEXT INDEX `name_index` (`name`),
   KEY `idol_idx1` (`type`,`rarity`)
-) ENGINE=Mroonga DEFAULT CHARSET=utf8;
+) ENGINE=Mroonga DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `skill`;
 CREATE TABLE `skill` (
@@ -28,7 +28,7 @@ CREATE TABLE `skill` (
   `skill_value_id` int(11) NOT NULL DEFAULT '0',
   `comment` varchar(256) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `skill_value`;
 CREATE TABLE `skill_value` (
@@ -46,7 +46,7 @@ CREATE TABLE `skill_value` (
   `value11` int(11) NOT NULL DEFAULT '0',
   `value12` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 DROP TABLE IF EXISTS `cartoon`;
@@ -54,7 +54,7 @@ DROP TABLE IF EXISTS `idol_name`;
 
 CREATE TABLE `idol_name` (
   `name` varchar(255) PRIMARY KEY
-) ENGINE=Mroonga DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='default_tokenizer "TokenDelimit"';
+) ENGINE=Mroonga DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='default_tokenizer "TokenDelimit"';
 
 CREATE TABLE `cartoon` (
   `id` int(11) NOT NULL DEFAULT '0' PRIMARY KEY,
@@ -65,4 +65,4 @@ CREATE TABLE `cartoon` (
   `thumbnail_hash` char(32) DEFAULT NULL,
   FULLTEXT INDEX `title_index` (`title`),
   FULLTEXT INDEX `idols_index` (`idols`) COMMENT 'table "idol_name"'
-) ENGINE=Mroonga DEFAULT CHARSET=utf8;
+) ENGINE=Mroonga DEFAULT CHARSET=utf8mb4;
