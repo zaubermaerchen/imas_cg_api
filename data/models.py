@@ -19,18 +19,18 @@ class BaseModel(models.Model):
 @python_2_unicode_compatible
 class SkillValue(BaseModel):
     id = models.IntegerField(primary_key=True)
-    value1 = models.IntegerField(default=0)
-    value2 = models.IntegerField(default=0)
-    value3 = models.IntegerField(default=0)
-    value4 = models.IntegerField(default=0)
-    value5 = models.IntegerField(default=0)
-    value6 = models.IntegerField(default=0)
-    value7 = models.IntegerField(default=0)
-    value8 = models.IntegerField(default=0)
-    value9 = models.IntegerField(default=0)
-    value10 = models.IntegerField(default=0)
-    value11 = models.IntegerField(default=0)
-    value12 = models.IntegerField(default=0)
+    value1 = models.FloatField(default=0)
+    value2 = models.FloatField(default=0)
+    value3 = models.FloatField(default=0)
+    value4 = models.FloatField(default=0)
+    value5 = models.FloatField(default=0)
+    value6 = models.FloatField(default=0)
+    value7 = models.FloatField(default=0)
+    value8 = models.FloatField(default=0)
+    value9 = models.FloatField(default=0)
+    value10 = models.FloatField(default=0)
+    value11 = models.FloatField(default=0)
+    value12 = models.FloatField(default=0)
 
     class Meta:
         db_table = 'skill_value'

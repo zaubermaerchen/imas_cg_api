@@ -34,18 +34,18 @@ CREATE TABLE `skill` (
 DROP TABLE IF EXISTS `skill_value`;
 CREATE TABLE `skill_value` (
   `id` int(11) NOT NULL,
-  `value1` int(11) NOT NULL DEFAULT '0',
-  `value2` int(11) NOT NULL DEFAULT '0',
-  `value3` int(11) NOT NULL DEFAULT '0',
-  `value4` int(11) NOT NULL DEFAULT '0',
-  `value5` int(11) NOT NULL DEFAULT '0',
-  `value6` int(11) NOT NULL DEFAULT '0',
-  `value7` int(11) NOT NULL DEFAULT '0',
-  `value8` int(11) NOT NULL DEFAULT '0',
-  `value9` int(11) NOT NULL DEFAULT '0',
-  `value10` int(11) NOT NULL DEFAULT '0',
-  `value11` int(11) NOT NULL DEFAULT '0',
-  `value12` int(11) NOT NULL DEFAULT '0',
+  `value1` double NOT NULL DEFAULT '0',
+  `value2` double NOT NULL DEFAULT '0',
+  `value3` double NOT NULL DEFAULT '0',
+  `value4` double NOT NULL DEFAULT '0',
+  `value5` double NOT NULL DEFAULT '0',
+  `value6` double NOT NULL DEFAULT '0',
+  `value7` double NOT NULL DEFAULT '0',
+  `value8` double NOT NULL DEFAULT '0',
+  `value9` double NOT NULL DEFAULT '0',
+  `value10` double NOT NULL DEFAULT '0',
+  `value11` double NOT NULL DEFAULT '0',
+  `value12` double NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
