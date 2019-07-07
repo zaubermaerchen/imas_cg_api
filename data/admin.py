@@ -18,6 +18,7 @@ class IdolAdmin(admin.ModelAdmin):
         'max_defense',
         'skill_name',
         'skill',
+        'skill2',
     )
 
     fieldsets = [
@@ -28,7 +29,7 @@ class IdolAdmin(admin.ModelAdmin):
             'fields': ['type', 'rarity', 'cost', 'offense', 'defense', 'max_offense', 'max_defense', 'hash']
         }),
         ('Skill', {
-            'fields': ['skill_name', 'skill']
+            'fields': ['skill_name', 'skill', 'skill2']
         }),
     ]
 

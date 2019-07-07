@@ -129,6 +129,7 @@ class Idol(BaseModel):
     max_defense = models.IntegerField(default=0)
     skill_name = models.CharField(max_length=256, blank=True, default='')
     skill = models.ForeignKey(Skill, related_name='skill', default=0, on_delete=models.PROTECT)
+    skill2 = models.ForeignKey(Skill, related_name='skill2', default=0, on_delete=models.PROTECT)
     hash = models.CharField(max_length=32)
 
     class Meta:

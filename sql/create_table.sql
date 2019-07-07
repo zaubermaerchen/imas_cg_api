@@ -11,6 +11,7 @@ CREATE TABLE `idol` (
   `max_defense` int(11) NOT NULL DEFAULT '0',
   `skill_name` varchar(256) NOT NULL DEFAULT '',
   `skill_id` int(11) NOT NULL DEFAULT '0',
+  `skill2_id` int(11) NOT NULL DEFAULT '0',
   `hash` char(32) DEFAULT NULL,
   PRIMARY KEY (`id`),
   FULLTEXT INDEX `name_index` (`name`),

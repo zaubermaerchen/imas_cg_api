@@ -18,5 +18,6 @@ class SearchSerializer(serializers.ModelSerializer):
             'max_defense',
             'skill_name',
             'skill',
+            'skill2',
             'hash',
         ]
