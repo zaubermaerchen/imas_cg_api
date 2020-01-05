@@ -2,28 +2,11 @@ THE IDOLM@STER CINDERELLA GIRLS IDOL DATA API
 ===============
 アイドルマスターシンデレラガールズのアイドルのステータスやスキルの効果等のデータを取得する為のAPIです。
 
-必要ミドルウェア・ライブラリ
----------------
-* Python >= 3.6
-* MariaDB >= 10.0(or MySQL >= 5.5)
-* [MeCab](http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html) >= 0.996
-* [Groonga](http://groonga.org/ja/) >= 5.00
-* [Mroonga](http://mroonga.org/ja/) >= 5.00
-
-必要Pythonライブラリ
----------------
-* Django >= 2.0
-* PyMySQL >= 0.8.0
-* simplejson >= 3.13.2
-
 ローカル環境での起動手順
 ---------------
-1. 必要ミドルウェア・ライブラリ、必要Pythonライブラリをインストールする
-1. sql/create_table.sqlを実行してテーブルを作成する
-1. プロジェクトのルートディレクトリで「python manage.py migrate」を実行してデータベースを初期化する
+1. docker-compose up
 1. データベースに[最新のデータ](http://www4018uf.sakura.ne.jp/imas_cg/data/imas_cg_api.sql)を登録する
-1. プロジェクトのルートディレクトリで「python manage.py runserver 8000」を実行してサーバーを起動する
-1. 「http://localhost:8000/imas_cg/api/admin/」にアクセスして管理画面にアクセスできるか確認する
+1. 「http://localhost:8000/admin/」にアクセスして管理画面にアクセスできるか確認する
 
 APIリファレンス
 ---------------
