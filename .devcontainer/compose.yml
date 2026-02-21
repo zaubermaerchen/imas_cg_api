@@ -1,0 +1,45 @@
+services:
+  db:
+    image: groonga/mroonga:mysql-8.4.8-15.25
+    platform: linux/x86_64
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_USER: imas_cg
+      MYSQL_PASSWORD: imas_cg
+      MYSQL_DATABASE: imas_cg
+    volumes:
+      - type: bind
+        source: ./sql
+        target: /docker-entrypoint-initdb.d
+  # Update this to the name of the service you want to work with in your docker-compose.yml file
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    tty: true
+    environment:
+      PYTHONUNBUFFERED: 1
+      PYTHONDONTWRITEBYTECODE: 1
+      UV_PROJECT_ENVIRONMENT: /home/vscode/.venv
+      UV_CACHE_DIR: /home/vscode/.cache/uv
+      UV_LINK_MODE: copy
+      UV_COMPILE_BYTECODE: 1
+      DJANGO_SETTINGS_MODULE : "api.settings.docker"
+      TZ: Asia/Tokyo
+    depends_on:
+      - db
+    volumes:
+      # Update this to wherever you want VS Code to mount the folder of your project
+      - ..:/workspaces/app:cached
+
+    # Uncomment the next four lines if you will use a ptrace-based debugger like C++, Go, and Rust.
+    # cap_add:
+    #   - SYS_PTRACE
+    # security_opt:
+    #   - seccomp:unconfined
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
