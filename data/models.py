@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from django.db.models.expressions import RawSQL
 from django.utils import timezone
 import collections
 
@@ -132,8 +133,8 @@ class Idol(BaseModel):
     class Meta:
         db_table = 'idol'
         ordering = ['idol_id']
-        index_together = [
-            ['type', 'rarity']
+        indexes = [
+            models.Index(fields=['type', 'rarity'])
         ]
 
     @classmethod
@@ -141,9 +142,10 @@ class Idol(BaseModel):
         idols = cls.objects.all()
 
         if name is not None and len(name) > 0:
-            where = 'MATCH(name) AGAINST (%s IN BOOLEAN MODE)'
             param = '*D+ ' + name
-            idols = idols.extra(where=[where], params=[param])
+            idols = idols.annotate(
+                name_match=RawSQL('MATCH(name) AGAINST (%s IN BOOLEAN MODE)', [param])
+            ).filter(name_match__gt=0)
 
         if idol_type is not None:
             if isinstance(idol_type, list):
@@ -188,14 +190,16 @@ class Cartoon(BaseModel):
         cartoons = cls.objects.all()
 
         if title is not None and len(title) > 0:
-            where = 'MATCH(title) AGAINST (%s IN BOOLEAN MODE)'
             param = '*D+ ' + title
-            cartoons = cartoons.extra(where=[where], params=[param])
+            cartoons = cartoons.annotate(
+                title_match=RawSQL('MATCH(title) AGAINST (%s IN BOOLEAN MODE)', [param])
+            ).filter(title_match__gt=0)
 
         if idols is not None and len(idols) > 0:
-            where = 'MATCH(idols) AGAINST (%s IN BOOLEAN MODE)'
             param = '+' + ' +'.join(idols)
-            cartoons = cartoons.extra(where=[where], params=[param])
+            cartoons = cartoons.annotate(
+                idols_match=RawSQL('MATCH(idols) AGAINST (%s IN BOOLEAN MODE)', [param])
+            ).filter(idols_match__gt=0)
 
         if start_at is not None:
             cartoons = cartoons.filter(date__gte=start_at)
