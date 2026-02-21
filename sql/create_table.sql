@@ -60,7 +60,7 @@ CREATE TABLE `idol_name` (
 CREATE TABLE `cartoon` (
   `id` int(11) NOT NULL DEFAULT '0' PRIMARY KEY,
   `title` varchar(256) NOT NULL DEFAULT '',
-  `date` date NOT NULL DEFAULT '0000-00-00',
+  `date` date NOT NULL DEFAULT '1970-01-01',
   `idols` text COMMENT 'flags "COLUMN_VECTOR", type "idol_name"',
   `comment` varchar(256) NOT NULL DEFAULT '',
   `thumbnail_hash` char(32) DEFAULT NULL,

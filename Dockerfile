@@ -1,7 +1,7 @@
-FROM python:alpine
-ENV LANG C.UTF-8
-ENV TZ Asia/Tokyo
-ENV PYTHONUNBUFFERED 1
+FROM python:3.10-alpine
+ENV LANG=C.UTF-8
+ENV TZ=Asia/Tokyo
+ENV PYTHONUNBUFFERED=1
 RUN apk add --no-cache gcc musl-dev libffi-dev openssl-dev mariadb-connector-c-dev \
     && pip install --upgrade pip \
     && pip install poetry uwsgi \
