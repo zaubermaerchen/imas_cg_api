@@ -1,19 +1,11 @@
-[tool.poetry]
-name = "imas_cg_api"
+[project]
+name = "suteki_blog_api"
 version = "0.1.0"
 description = "THE IDOLM@STER CINDERELLA GIRLS IDOL DATA API"
-authors = ["Mutsuki Kimuraya <sondessein@gmail.com>"]
-license = "MIT"
-
-[tool.poetry.dependencies]
-python = "^3.8"
-django = "^3.2"
-djangorestframework = "^3.11"
-django-cors-headers = "^3.2"
-mysqlclient = "^2.0"
-
-[tool.poetry.dev-dependencies]
-
-[build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires-python = ">=3.8"
+dependencies = [
+    "django>=3.2,<4",
+    "djangorestframework>=3.11,<4",
+    "django-cors-headers>=3.2,<4",
+    "mysqlclient>=2.0,<3",
+]
