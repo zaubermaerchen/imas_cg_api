@@ -7,9 +7,9 @@ import datetime
 class JSONResponse(HttpResponse):
     def __init__(self, content=b'', **kwargs):
         content = json.dumps(content, default=self.support_datetime_default, sort_keys=True)
-        
+
         kwargs['content_type'] = 'application/json'
-        super(JSONResponse, self).__init__(content, **kwargs)
+        super().__init__(content, **kwargs)
         self['Access-Control-Allow-Origin'] = '*'
         self['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
         self['Access-Control-Max-Age'] = '1000'
