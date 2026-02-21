@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import path
 from api.idol_name import views
 
 # Uncomment the next two lines to enable the admin:
@@ -6,6 +6,6 @@ from api.idol_name import views
 # admin.autodiscover()
 
 urlpatterns = [
-    url(r'^list$', views.get_list),
-    url(r'^list/$', views.get_list),
+    path('list', views.get_list),
+    path('list/', views.get_list),
 ]
