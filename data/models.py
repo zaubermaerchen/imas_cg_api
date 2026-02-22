@@ -9,11 +9,6 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
 
-    def get_dict(self):
-        dictionary = self.__dict__
-        del dictionary['_state']
-        return dictionary
-
 
 # スキル補正値管理テーブル
 class SkillValue(BaseModel):
