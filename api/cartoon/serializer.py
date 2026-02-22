@@ -1,5 +1,5 @@
-# coding: utf-8
 from rest_framework import serializers
+
 from data.models import Cartoon
 
 
@@ -22,7 +22,7 @@ class SearchSerializer(serializers.ModelSerializer):
         return obj.idols.split()
 
 
-class Costar(object):
+class Costar:
     def __init__(self, name, count):
         self.name = name
         self.count = count

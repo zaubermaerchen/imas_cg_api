@@ -1,4 +1,5 @@
 from django.urls import path
+
 from api.idol_name import views
 
 # Uncomment the next two lines to enable the admin:

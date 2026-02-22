@@ -1,8 +1,9 @@
-# -*- coding: utf-8 -*-
 from rest_framework import generics
-from .serializer import SearchSerializer
-from .pagination import SearchLimitOffsetPagination
+
 from data.models import Idol
+
+from .pagination import SearchLimitOffsetPagination
+from .serializer import SearchSerializer
 
 
 class GetView(generics.RetrieveAPIView):

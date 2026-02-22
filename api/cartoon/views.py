@@ -1,9 +1,11 @@
-# -*- coding: utf-8 -*-
-from rest_framework import generics
 from datetime import datetime
-from .serializer import SearchSerializer, Costar, CostarSerializer
-from .pagination import SearchLimitOffsetPagination
+
+from rest_framework import generics
+
 from data.models import Cartoon, IdolName
+
+from .pagination import SearchLimitOffsetPagination
+from .serializer import Costar, CostarSerializer, SearchSerializer
 
 
 def convert_datetime_object(datetime_string, datetime_format):
