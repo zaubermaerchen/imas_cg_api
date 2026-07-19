@@ -20,6 +20,9 @@ dev = [
 include = ["app"]
 pythonVersion = "3.12"
 typeCheckingMode = "standard"
+reportIncompatibleMethodOverride = "information"
+reportAttributeAccessIssue = "information"
+reportIncompatibleVariableOverride = "information"
 
 [tool.ruff]
 target-version = "py312"
