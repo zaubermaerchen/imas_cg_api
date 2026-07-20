@@ -1,8 +1,9 @@
-# -*- coding: utf-8 -*-
+import collections
+
 from django.db import models
 from django.db.models.expressions import RawSQL
 from django.utils import timezone
-import collections
+
 
 # Create your models here.
 class BaseModel(models.Model):
@@ -27,11 +28,11 @@ class SkillValue(BaseModel):
     value12 = models.FloatField(default=0)
 
     class Meta:
-        db_table = 'skill_value'
-        ordering = ['id']
+        db_table = "skill_value"
+        ordering = ["id"]
 
     def __str__(self):
-        return str(self.value1) + '%-' + str(self.value10) + '%'
+        return str(self.value1) + "%-" + str(self.value10) + "%"
 
     @classmethod
     def get_value_list(cls, skill_value_id):
@@ -45,7 +46,7 @@ class SkillValue(BaseModel):
         for i in range(1, 13):
             value = 0
             if obj is not None:
-                value = obj.__dict__['value' + str(i)]
+                value = obj.__dict__["value" + str(i)]
             value_list.append(value)
 
         return value_list
@@ -54,31 +55,31 @@ class SkillValue(BaseModel):
 # スキル情報管理テーブル
 class Skill(BaseModel):
     TARGET_UNIT_CHOICES = (
-        (0, 'Own'),
-        (1, 'Rival'),
+        (0, "Own"),
+        (1, "Rival"),
     )
     TARGET_MEMBER_CHOICES = (
-        (0, 'Self'),
-        (1, 'Front'),
-        (2, 'Back'),
-        (3, 'Front/Back'),
+        (0, "Self"),
+        (1, "Front"),
+        (2, "Back"),
+        (3, "Front/Back"),
     )
     TARGET_TYPE_CHOICES = (
-        (1, 'Cute'),
-        (2, 'Cool'),
-        (4, 'Passion'),
-        (3, 'Cute/Cool'),
-        (5, 'Cute/Passion'),
-        (6, 'Cool/Passion'),
-        (7, 'All'),
+        (1, "Cute"),
+        (2, "Cool"),
+        (4, "Passion"),
+        (3, "Cute/Cool"),
+        (5, "Cute/Passion"),
+        (6, "Cool/Passion"),
+        (7, "All"),
     )
     TARGET_PARAM_CHOICES = (
-        (0, 'All'),
-        (1, 'Offense'),
-        (2, 'Defense'),
+        (0, "All"),
+        (1, "Offense"),
+        (2, "Defense"),
     )
 
-    skill_id = models.IntegerField(db_column='id', primary_key=True)
+    skill_id = models.IntegerField(db_column="id", primary_key=True)
     target_unit = models.IntegerField(choices=TARGET_UNIT_CHOICES, default=0)
     target_member = models.IntegerField(choices=TARGET_MEMBER_CHOICES, default=0)
     target_type = models.IntegerField(choices=TARGET_TYPE_CHOICES, default=1)
@@ -88,8 +89,8 @@ class Skill(BaseModel):
     comment = models.CharField(max_length=256)
 
     class Meta:
-        db_table = 'skill'
-        ordering = ['skill_id']
+        db_table = "skill"
+        ordering = ["skill_id"]
 
     def __str__(self):
         return self.comment
@@ -98,20 +99,20 @@ class Skill(BaseModel):
 # アイドル情報管理テーブル
 class Idol(BaseModel):
     TYPE_CHOICES = (
-        (0, 'Cute'),
-        (1, 'Cool'),
-        (2, 'Passion'),
+        (0, "Cute"),
+        (1, "Cool"),
+        (2, "Passion"),
     )
     RARITY_CHOICES = (
-        (0, 'N'),
-        (1, 'N+'),
-        (2, 'R'),
-        (3, 'R+'),
-        (4, 'SR'),
-        (5, 'SR+'),
+        (0, "N"),
+        (1, "N+"),
+        (2, "R"),
+        (3, "R+"),
+        (4, "SR"),
+        (5, "SR+"),
     )
 
-    idol_id = models.IntegerField(db_column='id', primary_key=True)
+    idol_id = models.IntegerField(db_column="id", primary_key=True)
     name = models.CharField(max_length=256)
     type = models.IntegerField(choices=TYPE_CHOICES, default=0)
     rarity = models.IntegerField(choices=RARITY_CHOICES, default=0)
@@ -120,26 +121,28 @@ class Idol(BaseModel):
     defense = models.IntegerField(default=0)
     max_offense = models.IntegerField(default=0)
     max_defense = models.IntegerField(default=0)
-    skill_name = models.CharField(max_length=256, blank=True, default='')
-    skill = models.ForeignKey(Skill, related_name='skill', default=0, on_delete=models.PROTECT)
-    skill2 = models.ForeignKey(Skill, related_name='skill2', default=0, on_delete=models.PROTECT)
+    skill_name = models.CharField(max_length=256, blank=True, default="")
+    skill = models.ForeignKey(
+        Skill, related_name="skill", default=0, on_delete=models.PROTECT
+    )
+    skill2 = models.ForeignKey(
+        Skill, related_name="skill2", default=0, on_delete=models.PROTECT
+    )
     hash = models.CharField(max_length=32)
 
     class Meta:
-        db_table = 'idol'
-        ordering = ['idol_id']
-        indexes = [
-            models.Index(fields=['type', 'rarity'])
-        ]
+        db_table = "idol"
+        ordering = ["idol_id"]
+        indexes = [models.Index(fields=["type", "rarity"])]
 
     @classmethod
     def get_list(cls, name=None, idol_type=None, rarity=None):
         idols = cls.objects.all()
 
         if name is not None and len(name) > 0:
-            param = '*D+ ' + name
+            param = "*D+ " + name
             idols = idols.annotate(
-                name_match=RawSQL('MATCH(name) AGAINST (%s IN BOOLEAN MODE)', [param])
+                name_match=RawSQL("MATCH(name) AGAINST (%s IN BOOLEAN MODE)", [param])
             ).filter(name_match__gt=0)
 
         if idol_type is not None:
@@ -164,36 +167,37 @@ class IdolName(BaseModel):
     name = models.CharField(max_length=255, primary_key=True)
 
     class Meta:
-        db_table = 'idol_name'
+        db_table = "idol_name"
 
 
 # 劇場管理テーブル
 class Cartoon(BaseModel):
     id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=256, default='')
+    title = models.CharField(max_length=256, default="")
     date = models.DateField(default=timezone.now)
     idols = models.TextField(blank=True)
-    comment = models.CharField(max_length=256, blank=True, default='')
+    comment = models.CharField(max_length=256, blank=True, default="")
+    image_hash = models.CharField(max_length=32)
     thumbnail_hash = models.CharField(max_length=32)
 
     class Meta:
-        db_table = 'cartoon'
-        ordering = ['id']
+        db_table = "cartoon"
+        ordering = ["id"]
 
     @classmethod
     def get_list(cls, title=None, idols=None, start_at=None, end_at=None):
         cartoons = cls.objects.all()
 
         if title is not None and len(title) > 0:
-            param = '*D+ ' + title
+            param = "*D+ " + title
             cartoons = cartoons.annotate(
-                title_match=RawSQL('MATCH(title) AGAINST (%s IN BOOLEAN MODE)', [param])
+                title_match=RawSQL("MATCH(title) AGAINST (%s IN BOOLEAN MODE)", [param])
             ).filter(title_match__gt=0)
 
         if idols is not None and len(idols) > 0:
-            param = '+' + ' +'.join(idols)
+            param = "+" + " +".join(idols)
             cartoons = cartoons.annotate(
-                idols_match=RawSQL('MATCH(idols) AGAINST (%s IN BOOLEAN MODE)', [param])
+                idols_match=RawSQL("MATCH(idols) AGAINST (%s IN BOOLEAN MODE)", [param])
             ).filter(idols_match__gt=0)
 
         if start_at is not None:
@@ -214,4 +218,3 @@ class Cartoon(BaseModel):
         results = dict(collections.Counter(idols))
         del results[name]
         return results
-

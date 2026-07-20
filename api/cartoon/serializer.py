@@ -9,12 +9,13 @@ class SearchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cartoon
         fields = [
-            'id',
-            'title',
-            'date',
-            'characters',
-            'comment',
-            'thumbnail_hash',
+            "id",
+            "title",
+            "date",
+            "characters",
+            "comment",
+            "image_hash",
+            "thumbnail_hash",
         ]
 
     @staticmethod
@@ -36,6 +37,6 @@ class CostarSerializer(serializers.Serializer):
         return Costar(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.name = validated_data.get('name', instance.name)
-        instance.count = validated_data.get('count', instance.count)
+        instance.name = validated_data.get("name", instance.name)
+        instance.count = validated_data.get("count", instance.count)
         return instance
