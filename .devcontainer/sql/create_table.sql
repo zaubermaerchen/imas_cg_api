@@ -63,6 +63,7 @@ CREATE TABLE `cartoon` (
   `date` date NOT NULL DEFAULT '1970-01-01',
   `idols` text COMMENT 'flags "COLUMN_VECTOR", type "idol_name"',
   `comment` varchar(256) NOT NULL DEFAULT '',
+  `image_hash` char(32) DEFAULT NULL,
   `thumbnail_hash` char(32) DEFAULT NULL,
   FULLTEXT INDEX `title_index` (`title`),
   FULLTEXT INDEX `idols_index` (`idols`) COMMENT 'table "idol_name"'

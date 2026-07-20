@@ -1,5 +1,5 @@
-# coding: utf-8
 from rest_framework import serializers
+
 from data.models import Cartoon
 
 
@@ -9,12 +9,13 @@ class SearchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cartoon
         fields = [
-            'id',
-            'title',
-            'date',
-            'characters',
-            'comment',
-            'thumbnail_hash',
+            "id",
+            "title",
+            "date",
+            "characters",
+            "comment",
+            "image_hash",
+            "thumbnail_hash",
         ]
 
     @staticmethod
@@ -22,7 +23,7 @@ class SearchSerializer(serializers.ModelSerializer):
         return obj.idols.split()
 
 
-class Costar(object):
+class Costar:
     def __init__(self, name, count):
         self.name = name
         self.count = count
@@ -36,6 +37,6 @@ class CostarSerializer(serializers.Serializer):
         return Costar(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.name = validated_data.get('name', instance.name)
-        instance.count = validated_data.get('count', instance.count)
+        instance.name = validated_data.get("name", instance.name)
+        instance.count = validated_data.get("count", instance.count)
         return instance

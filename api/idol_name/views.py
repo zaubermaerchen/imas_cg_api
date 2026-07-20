@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from api.response import JSONResponse, JSONResponseNotFound
 from data.models import IdolName
 

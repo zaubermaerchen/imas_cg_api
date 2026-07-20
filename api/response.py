@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
-from django.http import HttpResponse
-import json
 import datetime
+import json
+
+from django.http import HttpResponse
 
 
 class JSONResponse(HttpResponse):
@@ -18,11 +18,11 @@ class JSONResponse(HttpResponse):
     @staticmethod
     def support_datetime_default(obj):
         if isinstance(obj, datetime.date):
-            return "{0:%Y-%m-%d}".format(obj)
+            return f"{obj:%Y-%m-%d}"
         elif isinstance(obj, datetime.datetime):
-            return "{0:%Y-%m-%d %H:%M:%S}".format(obj)
+            return f"{obj:%Y-%m-%d %H:%M:%S}"
         elif isinstance(obj, datetime.time):
-            return "{0:%H:%M:%S}".format(obj)
+            return f"{obj:%H:%M:%S}"
         raise TypeError(repr(obj) + " is not JSON serializable")
 
 
