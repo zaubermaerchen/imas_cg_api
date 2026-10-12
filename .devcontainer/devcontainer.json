@@ -45,7 +45,8 @@
 		"vscode": {
 			"extensions": [
 				"ms-python.python",
-                "charliermarsh.ruff"
+				"charliermarsh.ruff",
+				"cweijan.vscode-database-client2"
 			],
             "settings": {
                 "python.defaultInterpreterPath": "/home/vscode/.venv/bin/python"

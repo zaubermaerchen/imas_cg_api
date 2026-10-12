@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        "cweijan.vscode-database-client2",
+        "ms-python.python",
+        "charliermarsh.ruff"
+    ]
+}
