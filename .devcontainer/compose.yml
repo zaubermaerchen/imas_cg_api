@@ -1,6 +1,6 @@
 services:
   db:
-    image: groonga/mroonga:mysql-8.4.8-15.25
+    image: groonga/mroonga:mysql-8.4.11-16.12
     platform: linux/x86_64
     ports:
       - 3306:3306
