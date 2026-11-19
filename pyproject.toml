@@ -18,7 +18,7 @@ dev = [
 
 [tool.pyright]
 include = ["app"]
-pythonVersion = "3.12"
+pythonVersion = "3.14"
 typeCheckingMode = "standard"
 reportIncompatibleMethodOverride = "information"
 reportAttributeAccessIssue = "information"
